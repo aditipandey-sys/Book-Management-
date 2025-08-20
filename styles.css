@@ -610,13 +610,6 @@ form button:active {
 /* =======================
    Controls & Search
    ======================= */
-.controls {
-  display: flex;
-  gap: 1rem;
-  margin-bottom: 2rem;
-  flex-wrap: wrap;
-  align-items: center;
-}
 
 #searchInput {
   flex: 1;
