@@ -1,215 +1,336 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-  <meta charset="UTF-8">
-  <title>Book Management System</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            text: {
-              primary: "#2d3748",
-              secondary: "#4a5568",
-              light: "rgba(255,255,255,0.9)",
-              muted: "rgba(255,255,255,0.6)",
-            }
-          },
-          backgroundImage: {
-            'gradient-body': 'linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #667eea 100%)',
-            'gradient-primary': 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-            'gradient-accent': 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
-            'gradient-danger': 'linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%)',
-          },
-          boxShadow: {
-            glass: "0 8px 32px rgba(0,0,0,0.1)",
-            md: "0 8px 30px rgba(0,0,0,0.12)",
-            xl: "0 30px 80px rgba(0,0,0,0.2)",
-          },
-          borderRadius: {
-            sm: "8px",
-            md: "16px",
-            lg: "24px",
-            xl: "32px",
-          },
-          keyframes: {
-            float: {
-              "0%,100%": { transform: "translateY(0) rotate(0)" },
-              "33%": { transform: "translateY(-30px) rotate(120deg)" },
-              "66%": { transform: "translateY(30px) rotate(240deg)" },
+  <head>
+    <meta charset="UTF-8" />
+    <title>Book Management System</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              text: {
+                primary: "#2d3748",
+                secondary: "#4a5568",
+                light: "rgba(255,255,255,0.9)",
+                muted: "rgba(255,255,255,0.6)",
+              },
             },
-            slideInUp: {
-              from: { opacity: 0, transform: "translateY(60px) scale(0.95)" },
-              to: { opacity: 1, transform: "translateY(0) scale(1)" },
+            backgroundImage: {
+              "gradient-body":
+                "linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #667eea 100%)",
+              "gradient-primary":
+                "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+              "gradient-accent":
+                "linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)",
+              "gradient-danger":
+                "linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%)",
             },
-            spin: {
-              "0%": { transform: "rotate(0deg)" },
-              "100%": { transform: "rotate(360deg)" },
+            boxShadow: {
+              glass: "0 8px 32px rgba(0,0,0,0.1)",
+              md: "0 8px 30px rgba(0,0,0,0.12)",
+              xl: "0 30px 80px rgba(0,0,0,0.2)",
+            },
+            borderRadius: {
+              sm: "8px",
+              md: "16px",
+              lg: "24px",
+              xl: "32px",
+            },
+            keyframes: {
+              float: {
+                "0%,100%": { transform: "translateY(0) rotate(0)" },
+                "33%": { transform: "translateY(-30px) rotate(120deg)" },
+                "66%": { transform: "translateY(30px) rotate(240deg)" },
+              },
+              slideInUp: {
+                from: { opacity: 0, transform: "translateY(60px) scale(0.95)" },
+                to: { opacity: 1, transform: "translateY(0) scale(1)" },
+              },
+              spin: {
+                "0%": { transform: "rotate(0deg)" },
+                "100%": { transform: "rotate(360deg)" },
+              },
+            },
+            animation: {
+              float: "float 20s ease-in-out infinite",
+              slideInUp: "slideInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1)",
+              spin: "spin 1s linear infinite",
             },
           },
-          animation: {
-            float: "float 20s ease-in-out infinite",
-            slideInUp: "slideInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1)",
-            spin: "spin 1s linear infinite",
-          }
-        }
-      }
-    }
-  </script>
+        },
+      };
+    </script>
 
-  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
-</head>
+    <script
+      src="https://kit.fontawesome.com/a076d05399.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
 
-<body
-  class="relative min-h-screen font-sans text-text-primary overflow-x-hidden bg-gradient-body flex justify-center items-start p-8">
+  <body
+    class="relative min-h-screen font-sans text-text-primary overflow-x-hidden bg-gradient-body flex justify-center items-start p-8"
+  >
+    <!-- Animated floating background -->
+    <div
+      class="fixed inset-0 z-[-1] animate-float bg-[radial-gradient(circle_at_20%_80%,rgba(120,119,198,0.3)_0%,transparent_50%),radial-gradient(circle_at_80%_20%,rgba(255,255,255,0.1)_0%,transparent_50%),radial-gradient(circle_at_40%_40%,rgba(120,119,198,0.2)_0%,transparent_50%)]"
+    ></div>
 
-  <!-- Animated floating background -->
-  <div
-    class="fixed inset-0 z-[-1] animate-float
-    bg-[radial-gradient(circle_at_20%_80%,rgba(120,119,198,0.3)_0%,transparent_50%),radial-gradient(circle_at_80%_20%,rgba(255,255,255,0.1)_0%,transparent_50%),radial-gradient(circle_at_40%_40%,rgba(120,119,198,0.2)_0%,transparent_50%)]">
-  </div>
+    <!-- Home Page -->
+    <div id="home" class="page animate-slideInUp">
+      <h1
+        class="main-title text-center mb-12 text-transparent font-extrabold tracking-tight bg-gradient-to-r from-white to-gray-100 bg-clip-text text-[clamp(2.5rem,5vw,4rem)] relative after:content-[''] after:absolute after:bottom-[-10px] after:left-1/2 after:-translate-x-1/2 after:w-[100px] after:h-[3px] after:rounded-sm after:bg-gradient-accent"
+      >
+        📖 Book Management System
+      </h1>
 
-  <!-- Home Page -->
-  <div id="home" class="page animate-slideInUp">
-    <h1
-      class="main-title text-center mb-12 text-transparent font-extrabold tracking-tight bg-gradient-to-r from-white to-gray-100 bg-clip-text text-[clamp(2.5rem,5vw,4rem)] relative after:content-[''] after:absolute after:bottom-[-10px] after:left-1/2 after:-translate-x-1/2 after:w-[100px] after:h-[3px] after:rounded-sm after:bg-gradient-accent">
-      📖 Book Management System
-    </h1>
+      <div
+        class="menu-container grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl w-full"
+      >
+        <!-- Add Book Card -->
+        <div
+          onclick="showPage('addBookPage')"
+          class="menu-card relative flex flex-col items-center justify-center p-10 min-h-[200px] bg-white/10 backdrop-blur-xl border border-white/20 rounded-lg shadow-glass cursor-pointer transition-all duration-500 hover:-translate-y-2 hover:scale-105 hover:shadow-xl"
+        >
+          <i
+            class="fas fa-plus-circle text-5xl text-white mb-6 transition-transform duration-700 hover:rotate-[360deg]"
+          ></i>
+          <p class="font-semibold text-lg text-white">Add Book</p>
+        </div>
 
-    <div class="menu-container grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl w-full">
-      <!-- Add Book Card -->
-      <div onclick="showPage('addBookPage')"
-        class="menu-card relative flex flex-col items-center justify-center p-10 min-h-[200px] bg-white/10 backdrop-blur-xl border border-white/20 rounded-lg shadow-glass cursor-pointer transition-all duration-500 hover:-translate-y-2 hover:scale-105 hover:shadow-xl">
-        <i
-          class="fas fa-plus-circle text-5xl text-white mb-6 transition-transform duration-700 hover:rotate-[360deg]"></i>
-        <p class="font-semibold text-lg text-white">Add Book</p>
-      </div>
+        <!-- View Books Card -->
+        <div
+          onclick="showPage('viewBooksPage')"
+          class="relative flex flex-col items-center justify-center p-10 min-h-[200px] bg-white/10 backdrop-blur-xl border border-white/20 rounded-lg shadow-glass cursor-pointer transition-all duration-500 hover:-translate-y-2 hover:scale-105 hover:shadow-xl"
+        >
+          <i
+            class="fas fa-book-open text-5xl text-white mb-6 transition-transform duration-700 hover:rotate-[360deg]"
+          ></i>
+          <p class="font-semibold text-lg text-white">View Books</p>
+        </div>
 
-      <!-- View Books Card -->
-      <div onclick="showPage('viewBooksPage')"
-        class="relative flex flex-col items-center justify-center p-10 min-h-[200px] bg-white/10 backdrop-blur-xl border border-white/20 rounded-lg shadow-glass cursor-pointer transition-all duration-500 hover:-translate-y-2 hover:scale-105 hover:shadow-xl">
-        <i
-          class="fas fa-book-open text-5xl text-white mb-6 transition-transform duration-700 hover:rotate-[360deg]"></i>
-        <p class="font-semibold text-lg text-white">View Books</p>
-      </div>
-
-      <!-- Delete Book Card -->
-      <div onclick="showPage('deleteBookPage')"
-        class="relative flex flex-col items-center justify-center p-10 min-h-[200px] bg-white/10 backdrop-blur-xl border border-white/20 rounded-lg shadow-glass cursor-pointer transition-all duration-500 hover:-translate-y-2 hover:scale-105 hover:shadow-xl">
-        <i
-          class="fas fa-trash-alt text-5xl text-white mb-6 transition-transform duration-700 hover:rotate-[360deg]"></i>
-        <p class="font-semibold text-lg text-white">Delete Book</p>
+        <!-- Delete Book Card -->
+        <div
+          onclick="showPage('deleteBookPage')"
+          class="relative flex flex-col items-center justify-center p-10 min-h-[200px] bg-white/10 backdrop-blur-xl border border-white/20 rounded-lg shadow-glass cursor-pointer transition-all duration-500 hover:-translate-y-2 hover:scale-105 hover:shadow-xl"
+        >
+          <i
+            class="fas fa-trash-alt text-5xl text-white mb-6 transition-transform duration-700 hover:rotate-[360deg]"
+          ></i>
+          <p class="font-semibold text-lg text-white">Delete Book</p>
+        </div>
       </div>
     </div>
-  </div>
 
-  <!-- Add/Edit Book Page -->
-  <div id="addBookPage"
-    class="page hidden bg-white/10 backdrop-blur-xl border border-white/20 rounded-lg shadow-glass p-10 w-[min(800px,95vw)] animate-slideInUp relative">
-    <button onclick="showPage('home')"
-      class="back-btn text-white text-base px-3 py-2 rounded-md mb-6 transition-all hover:bg-white/10 hover:-translate-x-1">⬅
-      Back</button>
-    <h2 id="formTitle" class="text-white text-2xl font-bold text-center mb-8 relative after:content-['📚'] after:ml-2">
-      Add a New Book
-    </h2>
-    <form id="bookForm" class="grid gap-6">
-      <label class="text-white font-medium">Title:</label>
-      <input type="text" id="title" placeholder="Enter Book Title" required
-        class="w-full px-4 py-3 rounded-md bg-white/10 border border-white/20 text-white placeholder:text-white/50 focus:outline-none focus:border-white/40 focus:bg-white/20 focus:ring-2 focus:ring-white/20 transition-all">
-      <label class="text-white font-medium">Author:</label>
-      <input type="text" id="author" placeholder="Enter Author Name" required
-        class="w-full px-4 py-3 rounded-md bg-white/10 border border-white/20 text-white placeholder:text-white/50 focus:outline-none focus:border-white/40 focus:bg-white/20 focus:ring-2 focus:ring-white/20 transition-all">
-      <label class="text-white font-medium">ISBN:</label>
-      <input type="text" id="isbn" placeholder="Enter ISBN number" required
-        class="w-full px-4 py-3 rounded-md bg-white/10 border border-white/20 text-white placeholder:text-white/50 focus:outline-none focus:border-white/40 focus:bg-white/20 focus:ring-2 focus:ring-white/20 transition-all">
-      <label class="text-white font-medium">Publication Date:</label>
-      <input type="text" id="pubDate" placeholder="Select Date" required
-        class="w-full px-4 py-3 rounded-md bg-white/10 border border-white/20 text-white placeholder:text-white/50 focus:outline-none focus:border-white/40 focus:bg-white/20 focus:ring-2 focus:ring-white/20 transition-all">
-      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-      <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-      <script>
-        flatpickr("#pubDate", {
-          dateFormat: "Y-m-d",
-          position: "auto right"
-        });
-      </script>
-      <label class="text-white font-medium">Genre:</label>
-      <select id="genre" required class="w-full px-4 py-3 rounded-md bg-white/10 border border-white/20 text-white 
-         focus:outline-none focus:border-white/40 focus:bg-white/20 
-         focus:ring-2 focus:ring-white/20 transition-all 
-         appearance-none">
-        <option value="">Select Genre</option>
-        <option value="fiction">Fiction</option>
-        <option value="science">Science</option>
-        <option value="history">History</option>
-        <option value="biography">Biography</option>
-        <option value="technology">Technology</option>
-        <option value="romance">Romance</option>
-      </select>
-
-      <button type="submit"
-        class="relative mt-4 px-6 py-3 rounded-md bg-gradient-primary text-white font-semibold shadow-md transition-all hover:scale-105 hover:shadow-xl"
-        id="submitBtn">
-        Add Book
+    <!-- Add/Edit Book Page -->
+    <div
+      id="addBookPage"
+      class="page hidden bg-white/10 backdrop-blur-xl border border-white/20 rounded-lg shadow-glass p-10 w-[min(800px,95vw)] animate-slideInUp relative"
+    >
+      <button
+        onclick="showPage('home')"
+        class="back-btn text-white text-base px-3 py-2 rounded-md mb-6 transition-all hover:bg-white/10 hover:-translate-x-1"
+      >
+        ⬅ Back
       </button>
-    </form>
-  </div>
+      <h2
+        id="formTitle"
+        class="text-white text-2xl font-bold text-center mb-8 relative after:content-['📚'] after:ml-2"
+      >
+        Add a New Book
+      </h2>
+      <form id="bookForm" class="grid gap-6">
+        <label class="text-white font-medium">Title:</label>
+        <input
+          type="text"
+          id="title"
+          placeholder="Enter Book Title"
+          required
+          class="w-full px-4 py-3 rounded-md bg-white/10 border border-white/20 text-white placeholder:text-white/50 focus:outline-none focus:border-white/40 focus:bg-white/20 focus:ring-2 focus:ring-white/20 transition-all"
+        />
+        <label class="text-white font-medium">Author:</label>
+        <input
+          type="text"
+          id="author"
+          placeholder="Enter Author Name"
+          required
+          class="w-full px-4 py-3 rounded-md bg-white/10 border border-white/20 text-white placeholder:text-white/50 focus:outline-none focus:border-white/40 focus:bg-white/20 focus:ring-2 focus:ring-white/20 transition-all"
+        />
+        <label class="text-white font-medium">ISBN:</label>
+        <input
+          type="text"
+          id="isbn"
+          placeholder="Enter ISBN number"
+          required
+          class="w-full px-4 py-3 rounded-md bg-white/10 border border-white/20 text-white placeholder:text-white/50 focus:outline-none focus:border-white/40 focus:bg-white/20 focus:ring-2 focus:ring-white/20 transition-all"
+        />
+        <label class="text-white font-medium">Publication Date:</label>
+        <input
+          type="text"
+          id="pubDate"
+          placeholder="Select Date"
+          required
+          class="w-full px-4 py-3 rounded-md bg-white/10 border border-white/20 text-white placeholder:text-white/50 focus:outline-none focus:border-white/40 focus:bg-white/20 focus:ring-2 focus:ring-white/20 transition-all"
+        />
+        <link
+          rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css"
+        />
+        <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+        <script>
+          flatpickr("#pubDate", {
+            dateFormat: "Y-m-d",
+            position: "auto right",
+          });
+        </script>
+        <label class="text-white font-medium">Book Type:</label>
+        <select
+          id="bookType"
+          required
+          class="w-full px-4 py-3 rounded-md bg-white/10 border border-white/20 text-white focus:outline-none focus:border-white/40 focus:bg-white/20 focus:ring-2 focus:ring-white/20 transition-all"
+        >
+          <option value="">Select Type</option>
+          <option value="printed">Printed Book</option>
+          <option value="ebook">E-Book</option>
+        </select>
 
-  <!-- View Books Page -->
-  <div id="viewBooksPage"
-    class="page hidden bg-white/10 backdrop-blur-xl border border-white/20 rounded-lg shadow-glass p-10 w-[min(800px,95vw)] animate-slideInUp relative">
-    <button onclick="showPage('home')"
-      class="back-btn text-white px-3 py-2 rounded-md mb-6 hover:bg-white/10 hover:-translate-x-1">⬅ Back</button>
-    <h2 class="text-white text-2xl font-bold text-center mb-8 relative after:content-['👁️'] after:ml-2">Book List</h2>
+        <div id="pagesContainer">
+          <label class="text-white font-medium"
+            >Pages (for Printed Book):</label
+          >
+          <input
+            type="number"
+            id="pages"
+            placeholder="Enter number of pages"
+            class="w-full px-4 py-3 rounded-md bg-white/10 border border-white/20 text-white placeholder:text-white/50 focus:outline-none focus:border-white/40 focus:bg-white/20 focus:ring-2 focus:ring-white/20 transition-all"
+          />
+        </div>
 
-    <!-- Controls -->
-    <div class="controls flex flex-wrap gap-4 mb-6">
-      <input id="searchInput" type="text" placeholder="Search by title or author"
-        class="flex-1 min-w-[250px] px-4 py-3 rounded-md bg-white/10 border border-white/20 text-white placeholder:text-white/50 focus:outline-none focus:border-white/40 focus:bg-white/20 focus:ring-2 focus:ring-white/20 transition-all">
+        <div id="fileSizeContainer">
+          <label class="text-white font-medium"
+            >File Size (MB) (for E-Book):</label
+          >
+          <input
+            type="number"
+            id="fileSize"
+            placeholder="Enter file size in MB"
+            class="w-full px-4 py-3 rounded-md bg-white/10 border border-white/20 text-white placeholder:text-white/50 focus:outline-none focus:border-white/40 focus:bg-white/20 focus:ring-2 focus:ring-white/20 transition-all"
+          />
+        </div>
+        <label class="text-white font-medium">Genre:</label>
+        <select
+          id="genre"
+          required
+          class="w-full px-4 py-3 rounded-md bg-white/10 border border-white/20 text-white focus:outline-none focus:border-white/40 focus:bg-white/20 focus:ring-2 focus:ring-white/20 transition-all appearance-none"
+        >
+          <option value="">Select Genre</option>
+          <option value="fiction">Fiction</option>
+          <option value="science">Science</option>
+          <option value="history">History</option>
+          <option value="biography">Biography</option>
+          <option value="technology">Technology</option>
+          <option value="romance">Romance</option>
+          <option value="general">General</option>
+        </select>
 
-      <select id="filterGenre"
-        class="px-4 py-3 rounded-md bg-white/10 border border-white/20 text-white focus:outline-none focus:border-white/40 focus:bg-white/20 focus:ring-2 focus:ring-white/20 transition-all">
-        <option value="">All Genres</option>
-        <option value="fiction">Fiction</option>
-        <option value="science">Science</option>
-        <option value="history">History</option>
-        <option value="biography">Biography</option>
-        <option value="technology">Technology</option>
-        <option value="romance">Romance</option>
-        <option value="general">General</option>
-      </select>
+        <button
+          type="submit"
+          class="relative mt-4 px-6 py-3 rounded-md bg-gradient-primary text-white font-semibold shadow-md transition-all hover:scale-105 hover:shadow-xl"
+          id="submitBtn"
+        >
+          Add Book
+        </button>
+      </form>
+    </div>
 
-      <button id="fetchApiBtn"
-        class="px-6 py-3 bg-gradient-accent text-white font-medium rounded-md shadow-md transition-transform hover:scale-105">
-        Fetch from API
+    <!-- View Books Page -->
+    <div
+      id="viewBooksPage"
+      class="page hidden bg-white/10 backdrop-blur-xl border border-white/20 rounded-lg shadow-glass p-10 w-[min(800px,95vw)] animate-slideInUp relative"
+    >
+      <button
+        onclick="showPage('home')"
+        class="back-btn text-white px-3 py-2 rounded-md mb-6 hover:bg-white/10 hover:-translate-x-1"
+      >
+        ⬅ Back
       </button>
+      <h2
+        class="text-white text-2xl font-bold text-center mb-8 relative after:content-['👁'] after:ml-2"
+      >
+        Book List
+      </h2>
+
+      <!-- Controls -->
+      <div class="controls flex flex-wrap gap-4 mb-6">
+        <input
+          id="searchInput"
+          type="text"
+          placeholder="Search by title or author"
+          class="flex-1 min-w-[250px] px-4 py-3 rounded-md bg-white/10 border border-white/20 text-white placeholder:text-white/50 focus:outline-none focus:border-white/40 focus:bg-white/20 focus:ring-2 focus:ring-white/20 transition-all"
+        />
+
+        <select
+          id="filterGenre"
+          class="px-4 py-3 rounded-md bg-white/10 border border-white/20 text-white focus:outline-none focus:border-white/40 focus:bg-white/20 focus:ring-2 focus:ring-white/20 transition-all"
+        >
+          <option value="">All Genres</option>
+          <option value="fiction">Fiction</option>
+          <option value="science">Science</option>
+          <option value="history">History</option>
+          <option value="biography">Biography</option>
+          <option value="technology">Technology</option>
+          <option value="romance">Romance</option>
+          <option value="general">General</option>
+        </select>
+
+        <button
+          id="fetchApiBtn"
+          class="px-6 py-3 bg-gradient-accent text-white font-medium rounded-md shadow-md transition-transform hover:scale-105"
+        >
+          Fetch from API
+        </button>
+      </div>
+
+      <div
+        id="loadingSpinner"
+        class="loading-spinner hidden flex flex-col items-center gap-4 py-8"
+      >
+        <div
+          class="spinner w-12 h-12 border-4 border-white/20 border-t-white rounded-full animate-spin"
+        ></div>
+        <p class="text-white/80">Loading books...</p>
+      </div>
+
+      <div
+        id="errorContainer"
+        class="error-message hidden bg-red-500/20 text-red-400 p-4 rounded-md border border-red-500/30 backdrop-blur-md"
+      ></div>
+
+      <div
+        id="bookCardsContainer"
+        class="book-cards-container grid gap-6 mt-6 grid-cols-1 md:grid-cols-2"
+      ></div>
     </div>
 
-    <div id="loadingSpinner" class="loading-spinner hidden flex flex-col items-center gap-4 py-8">
-      <div class="spinner w-12 h-12 border-4 border-white/20 border-t-white rounded-full animate-spin"></div>
-      <p class="text-white/80">Loading books...</p>
+    <!-- Delete Books Page -->
+    <div
+      id="deleteBookPage"
+      class="page hidden bg-white/10 backdrop-blur-xl border border-white/20 rounded-lg shadow-glass p-10 w-[min(800px,95vw)] animate-slideInUp relative"
+    >
+      <button
+        onclick="showPage('home')"
+        class="back-btn text-white px-3 py-2 rounded-md mb-6 hover:bg-white/10 hover:-translate-x-1"
+      >
+        ⬅ Back
+      </button>
+      <h2
+        class="text-white text-2xl font-bold text-center mb-8 relative after:content-['🗑'] after:ml-2"
+      >
+        Delete Books
+      </h2>
+      <ul id="deleteList" class="grid gap-3"></ul>
     </div>
 
-    <div id="errorContainer"
-      class="error-message hidden bg-red-500/20 text-red-400 p-4 rounded-md border border-red-500/30 backdrop-blur-md">
-    </div>
-
-    <div id="bookCardsContainer" class="book-cards-container grid gap-6 mt-6 grid-cols-1 md:grid-cols-2"></div>
-  </div>
-
-  <!-- Delete Books Page -->
-  <div id="deleteBookPage"
-    class="page hidden bg-white/10 backdrop-blur-xl border border-white/20 rounded-lg shadow-glass p-10 w-[min(800px,95vw)] animate-slideInUp relative">
-    <button onclick="showPage('home')"
-      class="back-btn text-white px-3 py-2 rounded-md mb-6 hover:bg-white/10 hover:-translate-x-1">⬅ Back</button>
-    <h2 class="text-white text-2xl font-bold text-center mb-8 relative after:content-['🗑️'] after:ml-2">Delete Books
-    </h2>
-    <ul id="deleteList" class="grid gap-3"></ul>
-  </div>
-
-  <script src="script.js"></script>
-</body>
-
+    <script src="script.js"></script>
+  </body>
 </html>
